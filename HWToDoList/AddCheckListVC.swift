@@ -113,8 +113,7 @@ class AddCheckListVC: UIViewController, UITableViewDataSource, UITableViewDelega
   
   func didTapDoneButton() {
     let newCheckList = CheckList(name: nameTextField.text, icon: icon!)
-    addCheckListDelegate.addCheckList(newCheckList)
-    
     self.navigationController?.popViewControllerAnimated(true)
+    addCheckListDelegate.addCheckList(newCheckList)
   }
 }

@@ -65,7 +65,7 @@ class MainTableVC: UITableViewController, AddCheckListDelegate {
   
   func addCheckList(newCheckList: CheckList) {
     checkListList.append(newCheckList)
-    self.tableView.reloadData()
+    tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: checkListList.count - 1, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
   }
   
   // MARK: - Tap Action
