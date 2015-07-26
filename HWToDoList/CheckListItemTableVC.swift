@@ -8,7 +8,11 @@
 
 import UIKit
 
-class CheckListItemTableVC: UITableViewController {
+protocol AddCheckListItemDelegate: NSObjectProtocol {
+  func addCheckListItem(newCheckList: ListItem);
+}
+
+class CheckListItemTableVC: UITableViewController, AddCheckListItemDelegate {
   
   let checkList : CheckList
   static let checkImage = UIImage(named: "CheckMark")
@@ -47,9 +51,9 @@ class CheckListItemTableVC: UITableViewController {
       let item = itemList[indexPath.row]
       let name = item.name
       cell!.textLabel?.text = name
-      if item.dueDate.compare(NSDate()) == NSComparisonResult.OrderedAscending {
-        cell!.imageView?.image = CheckListItemTableVC.checkImage
-      }
+      cell!.imageView?.image = item.dueDate.compare(NSDate()) == NSComparisonResult.OrderedAscending
+        ? CheckListItemTableVC.checkImage
+        : nil
       cell!.accessoryType = UITableViewCellAccessoryType.DetailDisclosureButton
     } else {
       assertionFailure("check list missing!")
@@ -61,7 +65,14 @@ class CheckListItemTableVC: UITableViewController {
   // MARK: - Tap Action
   
   func didTapAddButton() {
-//    let addCheckListVC = AddCheckListVC(addCheckListDelegate: self)
-//    self.navigationController?.pushViewController(addCheckListVC, animated: true)
+    let addCheckListItemVC = AddCheckListItemTableVC(addCheckListItemDelegate: self)
+    self.navigationController?.pushViewController(addCheckListItemVC, animated: true)
+  }
+  
+  // MARK: - AddCheckListItemDelegate
+  
+  func addCheckListItem(newCheckList: ListItem) {
+    checkList.itemList.append(newCheckList)
+    self.tableView.reloadData()
   }
 }

@@ -27,10 +27,6 @@ class AddCheckListVC: UIViewController, UITableViewDataSource, UITableViewDelega
       fatalError("init(coder:) has not been implemented")
   }
   
-//  required init!(coder aDecoder: NSCoder!) {
-//    fatalError("init(coder:) has not been implemented")
-//  }
-  
   override func loadView() {
     self.view = UITableView(frame: CGRectZero, style: UITableViewStyle.Grouped)
     tableView = self.view as! UITableView
@@ -40,7 +36,6 @@ class AddCheckListVC: UIViewController, UITableViewDataSource, UITableViewDelega
   
   override func viewDidLoad() {
     super.viewDidLoad()
-//    self.tableView = UITableView(frame: CGRectZero, style: UITableViewStyle.Grouped)
     
     self.title = "Add Checklist"
     self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "didTapCancelButton")
@@ -107,7 +102,7 @@ class AddCheckListVC: UIViewController, UITableViewDataSource, UITableViewDelega
   
   func selectIconWithName(name: String) {
     icon = UIImage(named: name)
-    tableView.reloadData()
+    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 1)], withRowAnimation: UITableViewRowAnimation.None)
   }
   
   // MARK: - User Action

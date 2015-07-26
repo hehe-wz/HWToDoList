@@ -52,6 +52,15 @@ class MainTableVC: UITableViewController, AddCheckListDelegate {
     return cell!
   }
   
+  // MARK: - UITableViewDelegate
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    if indexPath.section < checkListList.count {
+      let checkListItemTableVC = CheckListItemTableVC(checkList: checkListList[indexPath.row])
+      self.navigationController?.pushViewController(checkListItemTableVC, animated: true)
+    }
+  }
+  
   // MARK: - AddCheckListDelegate
   
   func addCheckList(newCheckList: CheckList) {
